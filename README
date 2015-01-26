@@ -2,7 +2,7 @@
 INSTALLATION
 ============
 
-To install the requirements for this package, run
+Once you clone the repository to your computer, install the requirements for this package by running
 
 sudo pip install -r requirements.txt
 
