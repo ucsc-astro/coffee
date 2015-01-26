@@ -8,3 +8,13 @@ sudo pip install -r requirements.txt
 
 from within the directory.
 
+
+===
+USE
+===
+
+To run the tutorial, run
+
+ipython notebook
+
+from within the directory, then select the Learning SQLAlchemy notebook from the menu that pops up in your browser.
