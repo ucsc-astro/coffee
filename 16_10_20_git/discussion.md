@@ -86,7 +86,13 @@ git add hello.txt
 But this only adds changes to the staging area, not to the repository.
 
 ```
-git commit -m 'first commit'
+git commit
+```
+
+This will bring you to a text editor, where you can write a short description of the change, and save it.  To do this all on one line do
+
+```
+git commit -m  'first commit'
 ```
 
 Now we have saved a commit (like a "save as" checkpoint). Let's put this change on the remote server.
@@ -102,6 +108,47 @@ And [there](https://github.com/ucsc-astro/myrepo) it is!
 From the docs
 
 ![from git-scm](https://git-scm.com/book/en/v2/book/01-introduction/images/areas.png)
+
+## The undo button
+
+Things will go wrong. How do you deal with them?
+
+### The oops zone
+
+How to fix minor mistakes
+
+* `git commit --amend` will add any changes to the staging area to the previous commit
+
+* `git reset HEAD target_file` will remove `target_file` from the staging area. `HEAD` is a reference to the most current commit. This command can get confusing fast.  See the [docs](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified)
+
+```
+git revert 0766c053..HEAD
+git commit
+```
+will revert the tree to the git hash `0766c053`, and commits that old one to the tree. To figure out which hash corresponds to which commit, use `git log`.
+
+### The danger zone
+
+How to deal with less minor mistakes (at the risk of losing data).  Note that, barring all copies of a repository being deleted, any changes which have been committed can be recovered.
+
+* `git checkout -- target_file` will replace `target_file` in the working directory with the version from the previous commit.
+
+
+## Useful tools
+
+* `git status` - check what files are modified or staged for commit
+
+* `git diff` - see any file differences between commits
+
+* `git log` - see the revision history
+
+* `git fetch` - get information from the remote repository
+
+* `git remote` - manage remote repository list
+
+* `git rm` - removes files from the repository
+
+* any files listed in a `.gitignore` file will be ignored
 
 ## Other considerations
 
