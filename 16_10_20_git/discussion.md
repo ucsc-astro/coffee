@@ -119,7 +119,7 @@ How to fix minor mistakes
 
 * `git commit --amend` will add any changes to the staging area to the previous commit
 
-* `git reset HEAD target_file` will remove `target_file` from the staging area. `HEAD` is a reference to the most current commit. This command can get confusing fast.  See the [docs](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified)
+* `git reset HEAD target_file` will remove `target_file` from the staging area. `HEAD` is a reference to the most recent commit. This command can get confusing fast.  See the [docs](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified)
 
 ```
 git revert 0766c053..HEAD
@@ -129,12 +129,40 @@ will revert the tree to the git hash `0766c053`, and commits that old one to the
 
 ### The danger zone
 
-How to deal with less minor mistakes (at the risk of losing data).  Note that, barring all copies of a repository being deleted, any changes which have been committed can be recovered.
+How to deal with less minor mistakes (at the risk of losing data).  Note that, barring all copies of a repository being deleted, *any changes which have been committed can be recovered*.
 
 * `git checkout -- target_file` will replace `target_file` in the working directory with the version from the previous commit.
 
+## Branching off
 
-## Useful tools
+Let's say we want to work on something new and dangerous without having to worry about doing any of the undo nonsense above. To do this, we can branch off from the master branch.
+
+```
+git branch my_new_feature
+git checkout my_new_feature
+```
+Or in one line, `git checkout -b my_new_feature`. The `git branch` command makes a new branch pointing to the current commit. The `git checkout` command points our current commit to that branch, and changes the working directory to match that new branch.  Since the new branch is currently the same as the old one, we don't see the working directory change at all.
+
+Let's now make some bad changes and commit them.
+```
+echo "breaking change" > mission_critical_code.py
+git rm necessary_information.txt
+git add mission_critical_code.py
+git commit -m "hope this works"
+```
+When we notice that everything in this new feature branch is on fire, we can just switch back to the old, working master branch as such:
+```
+git checkout master
+```
+Again, note that performing a checkout will change your working directory to match the named commit, so if there are any changes in the working directory which are not committed, you need to either revert them or stash them (e.g., with `git stash`). This latter option allows for a recovery if you realize you accidently checked out over something you wanted to keep.
+
+I highly encourage you to read the [docs](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell) for a much nicer visual explanation of branches.
+
+## Working nicely with others
+
+A nice review of workflows from [Atlassian](https://www.atlassian.com/git/tutorials/comparing-workflows).
+
+## Useful things
 
 * `git status` - check what files are modified or staged for commit
 
@@ -165,39 +193,45 @@ You can change your text editor for commits (default is vim) with
 git config --global core.editor emacs
 ```
 
+To avoid logging in everytime you connect to a remote repo, upload your ssh public key to GitHub or BitBucket. See [here](https://help.github.com/articles/generating-an-ssh-key/) for details.
+
 ## A git glossary
 
 See also on [GitHub](https://help.github.com/articles/github-glossary/)
 
-* branch - a parallel version of the repository
+* branch - a named reference to a particular commit
 
 * clone - to make a copy of the repository
 
-* commit - to save the changes in the saving area to the repository
+* commit - to save the changes made in the staging area to the repository
 
 * diff - to check how a file is different between commits
 
-* fetch - get information from a remote repository
+* fetch - to get information from a remote repository
 
-* fork - copy a remote repository to a new remote repository
+* fork - to copy a remote repository to a new remote repository
 
-* master - the main branch of a repository
+* hash - a mapping of anything to a unique-ish 40 character string, used by git to have unique references to each commit
 
-* merge - copy changes from one branch to another
+* HEAD - a reference to the current commit, that is, the commit to which the next commit will reference back
+
+* master - conventionally, the primary branch of a repository
+
+* merge - to bring in changes from one branch to another
 
 * modified - describes file changes that aren't yet tracked in the staging area
 
-* origin - conventional name for the default remote repository
+* origin - a conventional name for the default remote repository
 
-* pull - read new changes into the local repository
+* pull - to read new changes from a remote repository into the local repository
 
-* pull request - ask for changes to be made to the remote master branch
+* pull request - to ask for changes to be made from the local repository to the remote master branch
 
-* push - write changes to remote repository
+* push - to write changes from the local repository to a remote repository
 
 * remote - a server with a git repository
 
-* repository - a directory tree with revision history
+* repository - a directory tree with a revision history
 
-* upstream - conventional name for the remote repository of which the local one is a fork
+* upstream - a conventional name for the remote repository of which the local one is a fork
 

@@ -111,7 +111,7 @@ git push --set-upstream origin master
 
 <ul>
 <li><p><code>git commit --amend</code> will add any changes to the staging area to the previous commit</p></li>
-<li><p><code>git reset HEAD target_file</code> will remove <code>target_file</code> from the staging area. <code>HEAD</code> is a reference to the most current commit. This command can get confusing fast.  See the <a href="https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">docs</a></p></li>
+<li><p><code>git reset HEAD target_file</code> will remove <code>target_file</code> from the staging area. <code>HEAD</code> is a reference to the most recent commit. This command can get confusing fast.  See the <a href="https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified">docs</a></p></li>
 </ul>
 
 
@@ -123,14 +123,43 @@ git commit
 
 <h3>The danger zone</h3>
 
-<p>How to deal with less minor mistakes (at the risk of losing data).  Note that, barring all copies of a repository being deleted, any changes which have been committed can be recovered.</p>
+<p>How to deal with less minor mistakes (at the risk of losing data).  Note that, barring all copies of a repository being deleted, <em>any changes which have been committed can be recovered</em>.</p>
 
 <ul>
 <li><code>git checkout -- target_file</code> will replace <code>target_file</code> in the working directory with the version from the previous commit.</li>
 </ul>
 
 
-<h2>Useful tools</h2>
+<h2>Branching off</h2>
+
+<p>Let&rsquo;s say we want to work on something new and dangerous without having to worry about doing any of the undo nonsense above. To do this, we can branch off from the master branch.</p>
+
+<pre><code>git branch my_new_feature
+git checkout my_new_feature
+</code></pre>
+
+<p>Or in one line, <code>git checkout -b my_new_feature</code>. The <code>git branch</code> command makes a new branch pointing to the current commit. The <code>git checkout</code> command points our current commit to that branch, and changes the working directory to match that new branch.  Since the new branch is currently the same as the old one, we don&rsquo;t see the working directory change at all.</p>
+
+<p>Let&rsquo;s now make some bad changes and commit them.
+<code>
+echo "breaking change" &gt; mission_critical_code.py
+git rm necessary_information.txt
+git add mission_critical_code.py
+git commit -m "hope this works"
+</code>
+When we notice that everything in this new feature branch is on fire, we can just switch back to the old, working master branch as such:
+<code>
+git checkout master
+</code>
+Again, note that performing a checkout will change your working directory to match the named commit, so if there are any changes in the working directory which are not committed, you need to either revert them or stash them (e.g., with <code>git stash</code>). This latter option allows for a recovery if you realize you accidently checked out over something you wanted to keep.</p>
+
+<p>I highly encourage you to read the <a href="https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell">docs</a> for a much nicer visual explanation of branches.</p>
+
+<h2>Working nicely with others</h2>
+
+<p>A nice review of workflows from <a href="https://www.atlassian.com/git/tutorials/comparing-workflows">Atlassian</a>.</p>
+
+<h2>Useful things</h2>
 
 <ul>
 <li><p><code>git status</code> - check what files are modified or staged for commit</p></li>
@@ -156,26 +185,30 @@ git config --global user.email youremail@ucsc.edu
 <pre><code>git config --global core.editor emacs
 </code></pre>
 
+<p>To avoid logging in everytime you connect to a remote repo, upload your ssh public key to GitHub or BitBucket. See <a href="https://help.github.com/articles/generating-an-ssh-key/">here</a> for details.</p>
+
 <h2>A git glossary</h2>
 
 <p>See also on <a href="https://help.github.com/articles/github-glossary/">GitHub</a></p>
 
 <ul>
-<li><p>branch - a parallel version of the repository</p></li>
+<li><p>branch - a named reference to a particular commit</p></li>
 <li><p>clone - to make a copy of the repository</p></li>
-<li><p>commit - to save the changes in the saving area to the repository</p></li>
+<li><p>commit - to save the changes made in the staging area to the repository</p></li>
 <li><p>diff - to check how a file is different between commits</p></li>
-<li><p>fetch - get information from a remote repository</p></li>
-<li><p>fork - copy a remote repository to a new remote repository</p></li>
-<li><p>master - the main branch of a repository</p></li>
-<li><p>merge - copy changes from one branch to another</p></li>
+<li><p>fetch - to get information from a remote repository</p></li>
+<li><p>fork - to copy a remote repository to a new remote repository</p></li>
+<li><p>hash - a mapping of anything to a unique-ish 40 character string, used by git to have unique references to each commit</p></li>
+<li><p>HEAD - a reference to the current commit, that is, the commit to which the next commit will reference back</p></li>
+<li><p>master - conventionally, the primary branch of a repository</p></li>
+<li><p>merge - to bring in changes from one branch to another</p></li>
 <li><p>modified - describes file changes that aren&rsquo;t yet tracked in the staging area</p></li>
-<li><p>origin - conventional name for the default remote repository</p></li>
-<li><p>pull - read new changes into the local repository</p></li>
-<li><p>pull request - ask for changes to be made to the remote master branch</p></li>
-<li><p>push - write changes to remote repository</p></li>
+<li><p>origin - a conventional name for the default remote repository</p></li>
+<li><p>pull - to read new changes from a remote repository into the local repository</p></li>
+<li><p>pull request - to ask for changes to be made from the local repository to the remote master branch</p></li>
+<li><p>push - to write changes from the local repository to a remote repository</p></li>
 <li><p>remote - a server with a git repository</p></li>
-<li><p>repository - a directory tree with revision history</p></li>
-<li><p>upstream - conventional name for the remote repository of which the local one is a fork</p></li>
+<li><p>repository - a directory tree with a revision history</p></li>
+<li><p>upstream - a conventional name for the remote repository of which the local one is a fork</p></li>
 </ul>
 
