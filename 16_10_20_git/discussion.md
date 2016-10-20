@@ -158,6 +158,19 @@ Again, note that performing a checkout will change your working directory to mat
 
 I highly encourage you to read the [docs](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell) for a much nicer visual explanation of branches.
 
+### Merging branches
+
+If you have been working for some time in a feature branch, you may want to combine it with another branch (could be, but doesn't have to be the master branch). Alternatively, you could have some new stable feature which was added to the master branch, which you now need for a different branch.
+
+Suppose we have a branch named "feature" which we want to merge into the "master" branch". First make sure that the working directory is clean (that is, there are no uncommitted changes).
+```
+git checkout master
+git merge feature
+```
+Depending on the branching history, git may use some deep magic to resolve the merge. If there is a conflict, git will tell you, and you'll have to fix it (read the [docs](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging#Basic-Merge-Conflicts)).
+
+If you don't have the most recent version of the feature branch, you'll have to fetch it: `git fetch origin master`, assuming "origin" refers to the default remote repository.
+
 ## Working nicely with others
 
 A nice review of workflows from [Atlassian](https://www.atlassian.com/git/tutorials/comparing-workflows).
