@@ -1,0 +1,28 @@
+============
+INSTALLATION
+============
+
+Once you clone the repository to your computer, install the requirements for this package by running
+
+sudo pip install -r requirements.txt
+
+from within the directory.
+
+
+===
+USE
+===
+
+To run the tutorial, run
+
+ipython notebook
+
+from within the directory, then select the Learning SQLAlchemy notebook from the menu that pops up in your browser.
+
+
+==========
+REFERENCES
+==========
+
+The sidereal package can be found here: http://infohost.nmt.edu/tcc/help/lang/python/examples/sidereal/
+The object relational tutorial derives from the official SQLAlchemy documentation: http://docs.sqlalchemy.org/en/rel_0_9/orm/tutorial.html
