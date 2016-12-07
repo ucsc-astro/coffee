@@ -7,7 +7,6 @@ Discussions organized by date, YY_MM_DD_subject.
 
 * Pure python
   * Packaging
-  * Python 3
 * Numpy
   * Indexing tricks
 * Astropy
@@ -25,7 +24,6 @@ Discussions organized by date, YY_MM_DD_subject.
 * Visualization
   * Matplotlib tricks
   * Seaborn
-  * yt
   * visit
 * Probability distribution sampling**
   * **should include discussion of how to evaluate convergence
@@ -43,3 +41,5 @@ Discussions organized by date, YY_MM_DD_subject.
 * Fall 2016
   * 10/20 - Asher - git
   * 11/3 - Alex - calling fortran from python
+  * 11/17 - informal discussion
+  * 11/31 - Ari - yt
