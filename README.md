@@ -43,3 +43,4 @@ Discussions organized by date, YY_MM_DD_subject.
   * 11/3 - Alex - calling fortran from python
   * 11/17 - informal discussion
   * 11/31 - Ari - yt
+  * 12/08 - Josh Speagle (visitor) - scikit-learn
